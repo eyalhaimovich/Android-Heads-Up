@@ -1,6 +1,6 @@
 # Phamspect Projects
  
-Heads Up Game for Android: 
+## Heads Up Game for Android: 
      * Plain text on blank background heads up game
      * Use randoms words to pop up -> Categories menu -> add database later
      * Timer Display
