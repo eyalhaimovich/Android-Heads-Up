@@ -9,3 +9,6 @@
      * Phone tilt recognition up & down to skip or confirm correct -> Display on screen
      * Show X or Checkmark during tilt for right or wrong
      * Make phone vibrate when phone tilts
+   ### Languages
+     * Android Studio for Code + Emulator
+     * SQL for database
