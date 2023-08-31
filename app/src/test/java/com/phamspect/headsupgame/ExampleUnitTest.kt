@@ -1,4 +1,4 @@
-package Phamspect.HeadsUp
+package com.phamspect.headsupgame
 
 import org.junit.Test
 
