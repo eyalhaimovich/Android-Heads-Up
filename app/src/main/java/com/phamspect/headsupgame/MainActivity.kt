@@ -22,12 +22,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //vars to id
-        //startButton = findViewById(R.id.start_button)
-        //stopButton = findViewById(R.id.stop_button)
-        //currentTime = findViewById(R.id.curr_time)
+        startButton = findViewById(R.id.startButt)
+        currentTime = findViewById(R.id.catTxt)
 
         //start button listener
-
         startButton.setOnClickListener {
             if(!isRunning){
                 timer = object : CountDownTimer(30000, 1000) {
@@ -47,11 +45,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         //end button listener
-        stopButton.setOnClickListener {
-            if(isRunning){
-                timer.cancel()
-                isRunning = false
-            }
-        }
+//        stopButton.setOnClickListener {
+//            if(isRunning){
+//                timer.cancel()
+//                isRunning = false
+//            }
+//        }
     }
 }
