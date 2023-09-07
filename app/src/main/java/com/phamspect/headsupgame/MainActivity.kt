@@ -1,5 +1,6 @@
 package com.phamspect.headsupgame
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
@@ -12,11 +13,6 @@ class MainActivity : AppCompatActivity() {
 
     //vars
     private lateinit var startButton: Button
-    private lateinit var stopButton: Button
-    private lateinit var currentTime: TextView
-    private lateinit var timer: CountDownTimer
-    private  var isRunning = false
-    private lateinit var category: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,36 +20,16 @@ class MainActivity : AppCompatActivity() {
 
         //vars to id
         startButton = findViewById(R.id.startButt)
-        currentTime = findViewById(R.id.catTxt)
+
 
         //start button listener
         startButton.setOnClickListener {
-            if(!isRunning){
-                timer = object : CountDownTimer(30000, 1000) {
-
-                    override fun onTick(millisUntilFinished: Long) {
-                        currentTime.text = (millisUntilFinished / 1000).toString()
-                    }
-
-                    override fun onFinish() {
-                        currentTime.text = "done!"
-                    }
-
-                }.start()
-                isRunning = true
-            }else{
-                //Say timer is already running
-            }
+            //intent to launch 2nd activity (ingame)
+            val intent = Intent(this@MainActivity, MainActivity2::class.java)
+            //values of (chosenKey) -> List[words]
+            //start it
+            startActivity(intent)
         }
-
-        makeCategoryButtons()
-        //end button listener
-//        stopButton.setOnClickListener {
-//            if(isRunning){
-//                timer.cancel()
-//                isRunning = false
-//            }
-//        }
     }
 
     private fun makeCategoryButtons(){
