@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     //vars
     private lateinit var startButton: Button
-
+    private lateinit var category: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
