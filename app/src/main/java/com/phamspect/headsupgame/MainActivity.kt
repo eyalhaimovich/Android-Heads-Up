@@ -79,27 +79,22 @@ class MainActivity : AppCompatActivity() {
         var button5 = findViewById<Button>(R.id.cat5)
         button5.setOnClickListener{
             category = button5.text.toString();
-
         }
         var button6 = findViewById<Button>(R.id.cat6)
         button6.setOnClickListener{
             category = button6.text.toString();
-            currentTime.text = button6.text.toString()
         }
         var button7 = findViewById<Button>(R.id.cat7)
         button7.setOnClickListener{
             category = button7.text.toString();
-            currentTime.text = button7.text.toString()
         }
         var button8 = findViewById<Button>(R.id.cat8)
         button8.setOnClickListener{
             category = button8.text.toString();
-            currentTime.text = button8.text.toString()
         }
         var button9 = findViewById<Button>(R.id.cat9)
         button9.setOnClickListener{
             category = button9.text.toString();
-            currentTime.text = button9.text.toString()
         }
     }
 
