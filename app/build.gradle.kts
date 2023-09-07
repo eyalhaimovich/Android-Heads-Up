@@ -1,3 +1,12 @@
+//openai api delete if cause bugs
+buildscript {
+    repositories{
+        mavenCentral()
+        maven{ url = uri("https://central.sonatype.com/namespace/com.aallam.openai") }
+    }
+}
+
+//normal code set up for app
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -42,6 +51,9 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.gridlayout:gridlayout:1.0.0")
+    implementation ("com.aallam.openai:openai-client:3.4.1")
+    implementation("io.ktor:ktor-client-android:2.3.4")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

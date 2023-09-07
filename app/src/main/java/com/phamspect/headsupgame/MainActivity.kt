@@ -1,10 +1,10 @@
 package com.phamspect.headsupgame
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.TextView
-import android.os.CountDownTimer
+import androidx.appcompat.app.AppCompatActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         //vars to id
-        startButton = findViewById(R.id.start_button)
-        stopButton = findViewById(R.id.stop_button)
-        currentTime = findViewById(R.id.curr_time)
+        //startButton = findViewById(R.id.start_button)
+        //stopButton = findViewById(R.id.stop_button)
+        //currentTime = findViewById(R.id.curr_time)
 
         //start button listener
 
