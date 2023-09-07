@@ -12,3 +12,11 @@
    ### Languages
      * Android Studio for Code + Emulator
      * SQL for database
+
+### Week 1
+    Finished main menu UI
+    Implemented timer functionality
+    NEXT TIME:
+    Make category buttons able to select multiple as a variable to choose possible words for gamestart
+    Create UI for in-game, UI will immediately start the timer and show random word from chosen categories
+    
