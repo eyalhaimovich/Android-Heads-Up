@@ -50,7 +50,14 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
     implementation("androidx.gridlayout:gridlayout:1.0.0")
+    // AI dependencies for accessing open ai server
+    implementation("io.ktor:ktor-client-core:2.3.4")
+    implementation("io.ktor:ktor-client-cio:2.3.4")
+    implementation("io.ktor:ktor-client-json:2.3.4")
+    implementation("io.ktor:ktor-client-serialization:2.3.4")
+    // AI dependencies
     implementation ("com.aallam.openai:openai-client:3.4.1")
     implementation("io.ktor:ktor-client-android:2.3.4")
 

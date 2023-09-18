@@ -11,22 +11,37 @@ class MainActivity : AppCompatActivity() {
 
 
     //vars
+<<<<<<< Updated upstream
     private lateinit var startButton: Button
     private lateinit var stopButton: Button
     private lateinit var currentTime: TextView
     private lateinit var timer: CountDownTimer
     private  var isRunning = false
     private lateinit var category: String
+=======
+    private lateinit var category: String
+    //TODO make dictionary key:value cat1:listof(words)
+>>>>>>> Stashed changes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+<<<<<<< Updated upstream
         //vars to id
         startButton = findViewById(R.id.startButt)
         currentTime = findViewById(R.id.catTxt)
 
+=======
+        //category buttons
+        makeCategoryButton()
+>>>>>>> Stashed changes
         //start button listener
+        makeStartButton()
+    }
+
+    private fun makeStartButton(){
+        var startButton: Button = findViewById(R.id.startButt)
         startButton.setOnClickListener {
             if(!isRunning){
                 timer = object : CountDownTimer(30000, 1000) {
@@ -103,4 +118,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    private fun makeCategoryButton(){
+        val buttonIds = listOf(
+            R.id.cat1, R.id.cat2, R.id.cat3,
+            R.id.cat4, R.id.cat5, R.id.cat6,
+            R.id.cat7, R.id.cat8, R.id.cat9
+        )
+        for (buttonId in buttonIds) {
+            val button = findViewById<Button>(buttonId)
+            button.setOnClickListener {
+                category = button.text.toString()
+            }
+        }
+    }
+>>>>>>> Stashed changes
 }
