@@ -53,13 +53,18 @@ dependencies {
 
     implementation("androidx.gridlayout:gridlayout:1.0.0")
     // AI dependencies for accessing open ai server
+/*
     implementation("io.ktor:ktor-client-core:2.3.4")
     implementation("io.ktor:ktor-client-cio:2.3.4")
     implementation("io.ktor:ktor-client-json:2.3.4")
     implementation("io.ktor:ktor-client-serialization:2.3.4")
+*/
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
     // AI dependencies
-    implementation ("com.aallam.openai:openai-client:3.4.1")
-    implementation("io.ktor:ktor-client-android:2.3.4")
+
+    //implementation ("com.aallam.openai:openai-client:3.4.1")
+    //implementation("io.ktor:ktor-client-android:2.3.4")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

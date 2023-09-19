@@ -9,10 +9,8 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
-
     //vars
-
-    private lateinit var category: String
+    private var category: String = ""
     //TODO make dictionary key:value cat1:listof(words)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,18 +31,12 @@ class MainActivity : AppCompatActivity() {
     private fun makeStartButton(){
         //start button listener
         var startButton :Button = findViewById(R.id.startButt)
-        startButton.setOnClickListener {
-            //intent to launch 2nd activity (ingame)
-            //val intent = Intent(this@MainActivity, MainActivity2::class.java)
 
+        startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
-            makeMainGameUI()
-            //add variables to transfer
-            // TODO MAKE THIS TRANSFER OVER TO ACTIVITY2
-            val list = listOf("df", "fr")
-            intent.putStringArrayListExtra("myVariableKey", ArrayList(list))
-            //start it
-            startActivity(intent)
+            if(category.isNotBlank()){
+                makeMainGameUI()
+            }
         }
     }
 
@@ -67,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                currentTime.text = "done!"
                 makeMainMenu()
             }
         }.start()
