@@ -1,5 +1,6 @@
 package com.phamspect.headsupgame
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         makeMainMenu()
     }
 
@@ -32,18 +34,33 @@ class MainActivity : AppCompatActivity() {
         //start button listener
         var startButton :Button = findViewById(R.id.startButt)
 
+
         startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
             if(category.isNotBlank()){
-                makeMainGameUI()
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                var timer1 = makeTimer(startButton, makeMainGameUI(), null,30,1)
+                timer1.start()
             }
         }
+    }
+
+    private fun makeTimer(textView: TextView, f1: Unit?,f2: Unit?, start: Long, interval: Long, ) : CountDownTimer {
+        var timer:CountDownTimer = object:CountDownTimer(start*1000, interval*1000){
+            override fun onTick(p0: Long) {
+                textView.text = (p0/1000).toString()
+            }
+            override fun onFinish() {
+                f1
+            }
+
+        }
+        return timer
     }
 
     // handel main game loop ui
     private fun makeMainGameUI() {
         setContentView(R.layout.activity_main2)
-
         //vars to id
         var currentTime: TextView = findViewById(R.id.timer)
         var word: TextView = findViewById(R.id.randomWord)
@@ -59,17 +76,17 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
                 makeMainMenu()
             }
-        }.start()
 
+        }.start()
         //next word
         nextWord.setOnClickListener {
             val randomIndex = Random.nextInt(words.size)
             val randomWord = words[randomIndex]
             word.text = randomWord
         }
-
     }
 
     // function add functionality to buttons
