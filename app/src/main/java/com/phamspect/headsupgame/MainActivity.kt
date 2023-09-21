@@ -8,20 +8,19 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
     //vars
-    private var category: String = ""
     private var points: Int = 0
     private var right :Int = 0
     private var wrong :Int = 0
-    //TODO make dictionary key:value cat1:listof(words)
+    private val catsLiveData = MutableLiveData<List<Int>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         makeMainMenu()
     }
 
@@ -33,19 +32,23 @@ class MainActivity : AppCompatActivity() {
         makeCategoryButton()
         //start button listener
         makeStartButton()
+        //start observer for category selection
+        createObserver()
     }
 
     // add functionality to start button
     private fun makeStartButton(){
         //start button listener
         var startButton :Button = findViewById(R.id.startButt)
+        startButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
         startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
-            if(category.isNotBlank()){
+            if(catsLiveData.value?.isNotEmpty() == true){
                 loadingScreen()
             }
             else{
                 //
+    
             }
         }
     }
@@ -149,17 +152,45 @@ class MainActivity : AppCompatActivity() {
         word.text = words[ran]
     }
 
-    // function add functionality to buttons
+    //make buttons and their functionality
     private fun makeCategoryButton(){
         val buttonIds = listOf(
             R.id.cat1, R.id.cat2, R.id.cat3,
             R.id.cat4, R.id.cat5, R.id.cat6,
             R.id.cat7, R.id.cat8, R.id.cat9
         )
+        val defaultBackgroundResource = Color.parseColor("#d67f40")
         for (buttonId in buttonIds) {
             val button = findViewById<Button>(buttonId)
+            button.setBackgroundColor(defaultBackgroundResource)
+            val buttonInt = button.text.toString().toInt()
             button.setOnClickListener {
-                category = button.text.toString()
+                //change color of button and add/remove btn's int to category list
+                val currentCats = catsLiveData.value ?: emptyList()
+                if (buttonInt !in currentCats){
+                    button.setBackgroundColor(Color.parseColor("#29c40e"))
+                    val updatedCats = currentCats + buttonInt
+                    catsLiveData.value = updatedCats
+                }
+                else{
+                    button.setBackgroundColor(defaultBackgroundResource)
+                    val updatedCats = currentCats - buttonInt
+                    catsLiveData.value = updatedCats
+                }
+            }
+        }
+    }
+
+    fun createObserver(){
+        catsLiveData.observe(this) { catsList ->
+            var sButton = findViewById<Button>(R.id.startButt)
+            if (catsList.isEmpty()) {
+                //grey out
+                sButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
+            } else {
+                //make normal color
+                sButton.setBackgroundColor(Color.parseColor("#d67f40"))
+
             }
         }
     }
