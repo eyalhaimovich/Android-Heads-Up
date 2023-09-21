@@ -30,6 +30,8 @@
     Move cateogry choice (1,2,3 etc.) to Acitivity2
     Make dictionary of lists in Activity2 to use as chosen
     Add logic to remove word from list when already showed up before
-    Add logic to to check for write/wrong answer (eventually by tilting phone)
+    Add logic to to check for right/wrong answer (eventually by tilting phone)
     Add logic to keep track of score (Can also add track of right and wrong answers)
+    
+### Week3 
     
