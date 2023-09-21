@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
             }
             else{
                 //
-    
             }
         }
     }
@@ -68,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onFinish() {
                 makeMainGame()
-                category = ""
             }
         }.start()
     }
@@ -100,12 +98,6 @@ class MainActivity : AppCompatActivity() {
         }.start()
         //next word
         nextWord(words,word, hit)
-//        nextWord.setOnClickListener {
-//            val randomIndex = Random.nextInt(words.size)
-//            val randomWord = words[randomIndex]
-//            word.text = randomWord
-//        }
-
         // right and wrong button handler
         rightWrong(words, word, hit)
     }
