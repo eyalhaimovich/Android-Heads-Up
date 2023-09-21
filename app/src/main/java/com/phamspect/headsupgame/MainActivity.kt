@@ -38,24 +38,20 @@ class MainActivity : AppCompatActivity() {
         startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
             if(category.isNotBlank()){
+
                 requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                var timer1 = makeTimer(startButton, makeMainGameUI(), null,30,1)
-                timer1.start()
+                var timer :CountDownTimer = object :CountDownTimer(3000,1000){
+                    override fun onTick(p0: Long) {
+                        startButton.text = (p0/1000).toString()
+
+                    }
+                    override fun onFinish() {
+                        makeMainGameUI()
+                    }
+                }.start()
+
             }
         }
-    }
-
-    private fun makeTimer(textView: TextView, f1: Unit?,f2: Unit?, start: Long, interval: Long, ) : CountDownTimer {
-        var timer:CountDownTimer = object:CountDownTimer(start*1000, interval*1000){
-            override fun onTick(p0: Long) {
-                textView.text = (p0/1000).toString()
-            }
-            override fun onFinish() {
-                f1
-            }
-
-        }
-        return timer
     }
 
     // handel main game loop ui
@@ -69,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         var words = listOf("Apple", "Banana", "Cherry", "Date")
 
         //timer
-        var timer:CountDownTimer = object : CountDownTimer(30000, 1000) {
+        var timer:CountDownTimer = object : CountDownTimer(3000, 1000) {
 
             override fun onTick(millisUntilFinished: Long) {
                 currentTime.text = (millisUntilFinished / 1000).toString()
@@ -77,6 +73,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                category = ""
                 makeMainMenu()
             }
 
