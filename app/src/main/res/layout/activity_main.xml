@@ -7,6 +7,7 @@
     android:background="#2196F3"
     android:backgroundTint="#885B8F"
     android:backgroundTintMode="add"
+    android:visibility="visible"
     tools:context=".MainActivity">
 
     <TextView
@@ -58,6 +59,7 @@
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textIsSelectable="false"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
@@ -97,6 +99,7 @@
             android:insetRight="5pt"
             android:insetBottom="0pt"
             android:text="7"
+            android:visibility="visible"
             app:layout_column="0"
             app:layout_row="2" />
 
@@ -111,6 +114,7 @@
             android:insetRight="5pt"
             android:insetBottom="0pt"
             android:text="4"
+            android:visibility="visible"
             app:layout_column="0"
             app:layout_row="1" />
 
@@ -125,6 +129,7 @@
             android:insetRight="5pt"
             android:insetBottom="0pt"
             android:text="1"
+            android:visibility="visible"
             app:layout_column="0"
             app:layout_row="0" />
 
@@ -139,6 +144,7 @@
             android:insetRight="5pt"
             android:insetBottom="0pt"
             android:text="2"
+            android:visibility="visible"
             app:layout_column="1"
             app:layout_row="0" />
 
@@ -153,6 +159,7 @@
             android:insetRight="5pt"
             android:insetBottom="0pt"
             android:text="5"
+            android:visibility="visible"
             app:layout_column="1"
             app:layout_row="1" />
 
@@ -167,6 +174,7 @@
             android:insetRight="5pt"
             android:insetBottom="0pt"
             android:text="8"
+            android:visibility="visible"
             app:layout_column="1"
             app:layout_row="2" />
 
@@ -181,6 +189,7 @@
             android:insetRight="5pt"
             android:insetBottom="0pt"
             android:text="3"
+            android:visibility="visible"
             app:layout_column="2"
             app:layout_row="0" />
 
@@ -195,6 +204,7 @@
             android:insetRight="5pt"
             android:insetBottom="0pt"
             android:text="6"
+            android:visibility="visible"
             app:layout_column="2"
             app:layout_row="1" />
 
@@ -209,6 +219,7 @@
             android:insetRight="5pt"
             android:insetBottom="0pt"
             android:text="9"
+            android:visibility="visible"
             app:layout_column="2"
             app:layout_row="2" />
 
