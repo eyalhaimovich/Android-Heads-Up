@@ -1,11 +1,13 @@
 package com.phamspect.headsupgame
 
+import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
@@ -19,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     private var wrong :Int = 0
     private val catsLiveData = MutableLiveData<List<Int>>()
 
+    private var selected:Button? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         makeMainMenu()
@@ -29,7 +33,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         //category buttons
-        makeCategoryButton()
+        //makeCategoryButton()
+        makeCatButton2()
         //start button listener
         makeStartButton()
         //start observer for category selection
@@ -41,13 +46,14 @@ class MainActivity : AppCompatActivity() {
         //start button listener
         var startButton :Button = findViewById(R.id.startButt)
         startButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
+        startButton.isEnabled = false
         startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
-            if(catsLiveData.value?.isNotEmpty() == true){
+//            if(catsLiveData.value?.isNotEmpty() == true){
+//                loadingScreen()
+//            }
+            if(selected != null){
                 loadingScreen()
-            }
-            else{
-                //
             }
         }
     }
@@ -72,12 +78,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     // handel main game loop ui
+    @SuppressLint("MissingInflatedId")
     private fun makeMainGame() {
         setContentView(R.layout.activity_main2)
         //vars to id
         var currentTime: TextView = findViewById(R.id.timer)
         var word: TextView = findViewById(R.id.randomWord)
-        var nextWord: Button = findViewById(R.id.nextWord)
+
         var hit :HashSet<Int> = hashSetOf<Int>()
 
         //using var to remove words from list when used in session
@@ -146,6 +153,7 @@ class MainActivity : AppCompatActivity() {
 
     //make buttons and their functionality
     private fun makeCategoryButton(){
+
         val buttonIds = listOf(
             R.id.cat1, R.id.cat2, R.id.cat3,
             R.id.cat4, R.id.cat5, R.id.cat6,
@@ -183,6 +191,32 @@ class MainActivity : AppCompatActivity() {
                 //make normal color
                 sButton.setBackgroundColor(Color.parseColor("#d67f40"))
 
+            }
+        }
+    }
+
+    private fun makeCatButton2(){
+        val start: Button = findViewById(R.id.startButt)
+        val grid : LinearLayout = findViewById(R.id.gridL)
+        val cCount = grid.childCount
+        for(i in 0 ..<cCount){
+            val button : Button = grid.getChildAt(i) as Button
+            button.setBackgroundColor(Color.GREEN)
+            button.setOnClickListener {
+                if(selected != null){
+                    selected!!.setBackgroundColor(Color.GREEN)
+                }
+                if(button == selected){
+                    selected = null
+                    start.setBackgroundColor(Color.LTGRAY)
+                    start.isEnabled = false
+                }
+                else{
+                    selected = button
+                    button.setBackgroundColor(Color.LTGRAY)
+                    start.setBackgroundColor(Color.GREEN)
+                    start.isEnabled = true
+                }
             }
         }
     }
