@@ -42,6 +42,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    //buildFeatures added for viewBinding / viewModel
+    buildFeatures{
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -50,8 +55,10 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-
     implementation("androidx.gridlayout:gridlayout:1.0.0")
+    //two below added for viewBinding / viewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.activity:activity-ktx:1.7.2")
     // AI dependencies for accessing open ai server
 /*
     implementation("io.ktor:ktor-client-core:2.3.4")
