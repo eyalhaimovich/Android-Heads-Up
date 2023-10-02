@@ -4,21 +4,19 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-<<<<<<< Updated upstream
-=======
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
-import com.phamspect.headsupgame.databinding.ActivityMainBinding
 import com.phamspect.headsupgame.databinding.ActivityMain2Binding
+import com.phamspect.headsupgame.databinding.ActivityMainBinding
 import com.phamspect.headsupgame.databinding.LoadingBinding
->>>>>>> Stashed changes
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
+
+    private val catsLiveData = MutableLiveData<List<Int>>()
 
     //use binding for xml/viewModel vars
     private lateinit var binding: ActivityMainBinding
@@ -46,25 +44,26 @@ class MainActivity : AppCompatActivity() {
     private fun makeMainMenu() {
         setContentView(binding.root)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+        binding.score.text = viewModel.getPoints().toString()
         //category buttons
         makeCategoryButton()
         //start button listener
         makeStartButton()
+
+        createObserver()
     }
 
     // add functionality to start button
     private fun makeStartButton(){
         //start button listener
-<<<<<<< Updated upstream
-        var startButton :Button = findViewById(R.id.startButt)
-=======
         var startButton :Button = binding.startButt
         startButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
->>>>>>> Stashed changes
         startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
-            if(category.isNotBlank()){
+            if(catsLiveData.value?.isNotEmpty() == true){
                 loadingScreen()
+                viewModel.reset()
             }
             else{
                 //
@@ -78,11 +77,14 @@ class MainActivity : AppCompatActivity() {
         var textView : TextView = loadingBinding.countDown
         object :CountDownTimer(4000,1000){
             override fun onTick(p0: Long) {
+                var layout = loadingBinding.layOut
                 textView.text = (p0/1000).toString()
                 if(p0<1000){
-                    var layout = loadingBinding.layOut
                     layout.setBackgroundColor(Color.parseColor("#4CAF50"))
                     textView.text = "GO!"
+                }
+                else {
+                    layout.setBackgroundColor(Color.RED)
                 }
             }
             override fun onFinish() {
@@ -98,7 +100,6 @@ class MainActivity : AppCompatActivity() {
         //vars to id
         var currentTime = mainActivity2Binding.timer
         var word = mainActivity2Binding.randomWord
-        var nextWord = mainActivity2Binding.nextWord
         var hit = hashSetOf<Int>()
 
         //using var to remove words from list when used in session
@@ -127,21 +128,28 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         // right and wrong button handler
-        rightWrong(words, word, hit)
+        rightWrong(words, word, hit, timer)
     }
 
-    private fun rightWrong(words: List<String>, word: TextView, hit: HashSet<Int>) {
+    private fun rightWrong(
+        words: List<String>,
+        word: TextView,
+        hit: HashSet<Int>,
+        timer: CountDownTimer
+    ) {
         var right = mainActivity2Binding.rButton
         var wrong = mainActivity2Binding.wButton
 
         right.setOnClickListener {
             // if statement for testing
             if(hit.size == words.size){
+                viewModel.right()
+                timer.cancel()
                 makeMainMenu()
             }
             else {
-                this.right++
-                this.points++
+                viewModel.right()
+                println(viewModel.getPoints())
                 nextWord(words, word, hit)
             }
 
@@ -150,11 +158,12 @@ class MainActivity : AppCompatActivity() {
         wrong.setOnClickListener {
             //if statement for testing
             if(hit.size == words.size){
+                viewModel.wrong()
+                timer.cancel()
                 makeMainMenu()
             }
             else {
-                this.points--
-                this.wrong++
+                viewModel.wrong()
                 nextWord(words, word, hit)
             }
         }
@@ -180,12 +189,6 @@ class MainActivity : AppCompatActivity() {
             binding.cat4, binding.cat5, binding.cat6,
             binding.cat7, binding.cat8, binding.cat9
         )
-<<<<<<< Updated upstream
-        for (buttonId in buttonIds) {
-            val button = findViewById<Button>(buttonId)
-            button.setOnClickListener {
-                category = button.text.toString()
-=======
         val defaultBackgroundResource = Color.parseColor("#d67f40")
         for (button in categoryButtons) {
             button.setBackgroundColor(defaultBackgroundResource)
@@ -216,8 +219,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 //make normal color
                 sButton.setBackgroundColor(Color.parseColor("#d67f40"))
-
->>>>>>> Stashed changes
             }
         }
     }

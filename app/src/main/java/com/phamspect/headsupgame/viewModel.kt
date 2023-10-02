@@ -1,6 +1,5 @@
 package com.phamspect.headsupgame
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 
@@ -18,5 +17,21 @@ class viewModel(private val savedStateHandle: SavedStateHandle): ViewModel() {
 
     fun getPoints(): Int{
         return points
+    }
+
+    fun right(){
+        right++
+        points++
+    }
+
+    fun wrong(){
+        wrong++
+        points--
+    }
+
+    fun reset(){
+        right = 0
+        wrong = 0
+        points = 0
     }
 }
