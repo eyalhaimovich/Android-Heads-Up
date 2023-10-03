@@ -4,65 +4,78 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
+import com.phamspect.headsupgame.databinding.ActivityMain2Binding
+import com.phamspect.headsupgame.databinding.ActivityMainBinding
+import com.phamspect.headsupgame.databinding.LoadingBinding
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
-    //vars
-    private var points: Int = 0
-    private var right :Int = 0
-    private var wrong :Int = 0
-    private val catsLiveData = MutableLiveData<List<Int>>()
+
+
+    //use binding for xml/viewModel vars
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var mainActivity2Binding: ActivityMain2Binding
+    private lateinit var loadingBinding: LoadingBinding
+    private val viewModel: viewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //Use binding for layout/xml data link instead of manual
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        mainActivity2Binding = ActivityMain2Binding.inflate(layoutInflater)
+        loadingBinding = LoadingBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+
         makeMainMenu()
     }
 
     // make main menu setup
     private fun makeMainMenu() {
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+        binding.score.text = viewModel.getPoints().toString()
         //category buttons
         makeCategoryButton()
         //start button listener
         makeStartButton()
-        //start observer for category selection
+
         createObserver()
     }
 
     // add functionality to start button
     private fun makeStartButton(){
         //start button listener
-        var startButton :Button = findViewById(R.id.startButt)
+        var startButton :Button = binding.startButt
         startButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
         startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
-            if(catsLiveData.value?.isNotEmpty() == true){
+            if(viewModel.getCatsLiveData().value?.isNotEmpty() == true){
                 loadingScreen()
-            }
-            else{
-                //
+                viewModel.updateCatsList(emptyList())
             }
         }
     }
 
     private fun loadingScreen() {
+        setContentView(loadingBinding.root)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        setContentView(R.layout.loading)
-        var textView : TextView = findViewById(R.id.countDown)
+        var textView : TextView = loadingBinding.countDown
         object :CountDownTimer(4000,1000){
             override fun onTick(p0: Long) {
+                var layout = loadingBinding.layOut
                 textView.text = (p0/1000).toString()
                 if(p0<1000){
-                    var layout = findViewById<View>(R.id.layOut)
                     layout.setBackgroundColor(Color.parseColor("#4CAF50"))
                     textView.text = "GO!"
+                }
+                else {
+                    layout.setBackgroundColor(Color.RED)
                 }
             }
             override fun onFinish() {
@@ -71,14 +84,15 @@ class MainActivity : AppCompatActivity() {
         }.start()
     }
 
-    // handel main game loop ui
+    // handle main game loop ui
     private fun makeMainGame() {
-        setContentView(R.layout.activity_main2)
+        setContentView(mainActivity2Binding.root)
         //vars to id
-        var currentTime: TextView = findViewById(R.id.timer)
-        var word: TextView = findViewById(R.id.randomWord)
-        var nextWord: Button = findViewById(R.id.nextWord)
-        var hit :HashSet<Int> = hashSetOf<Int>()
+        var currentTime = mainActivity2Binding.timer
+        var word = mainActivity2Binding.randomWord
+        var hit = hashSetOf<Int>()
+        //reset viewmodel's points
+        viewModel.reset()
 
         //using var to remove words from list when used in session
         var words = listOf("Apple", "Banana", "Cherry", "Date")
@@ -91,29 +105,35 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                points = 0
                 makeMainMenu()
             }
 
         }.start()
         //next word
         nextWord(words,word, hit)
+//        nextWord.setOnClickListener {
+//            val randomIndex = Random.nextInt(words.size)
+//            val randomWord = words[randomIndex]
+//            word.text = randomWord
+//        }
+
         // right and wrong button handler
-        rightWrong(words, word, hit)
+        rightWrong(words, word, hit, timer)
     }
 
-    private fun rightWrong(words: List<String>, word: TextView, hit: HashSet<Int>) {
-        var right : Button = findViewById(R.id.rButton)
-        var wrong : Button = findViewById(R.id.wButton)
+    private fun rightWrong(words: List<String>, word: TextView, hit: HashSet<Int>, timer: CountDownTimer) {
+        var right = mainActivity2Binding.rButton
+        var wrong = mainActivity2Binding.wButton
 
         right.setOnClickListener {
             // if statement for testing
             if(hit.size == words.size){
+                viewModel.right()
+                timer.cancel()
                 makeMainMenu()
             }
             else {
-                this.right++
-                this.points++
+                viewModel.right()
                 nextWord(words, word, hit)
             }
 
@@ -122,10 +142,12 @@ class MainActivity : AppCompatActivity() {
         wrong.setOnClickListener {
             //if statement for testing
             if(hit.size == words.size){
+                viewModel.wrong()
+                timer.cancel()
                 makeMainMenu()
             }
             else {
-                this.wrong++
+                viewModel.wrong()
                 nextWord(words, word, hit)
             }
         }
@@ -144,47 +166,45 @@ class MainActivity : AppCompatActivity() {
         word.text = words[ran]
     }
 
-    //make buttons and their functionality
+    // function add functionality to buttons
     private fun makeCategoryButton(){
-        val buttonIds = listOf(
-            R.id.cat1, R.id.cat2, R.id.cat3,
-            R.id.cat4, R.id.cat5, R.id.cat6,
-            R.id.cat7, R.id.cat8, R.id.cat9
+        val categoryButtons = listOf(
+            binding.cat1, binding.cat2, binding.cat3,
+            binding.cat4, binding.cat5, binding.cat6,
+            binding.cat7, binding.cat8, binding.cat9
         )
         val defaultBackgroundResource = Color.parseColor("#d67f40")
-        for (buttonId in buttonIds) {
-            val button = findViewById<Button>(buttonId)
+        for (button in categoryButtons) {
             button.setBackgroundColor(defaultBackgroundResource)
             val buttonInt = button.text.toString().toInt()
             button.setOnClickListener {
                 //change color of button and add/remove btn's int to category list
-                val currentCats = catsLiveData.value ?: emptyList()
+                val currentCats = viewModel.getCatsLiveData().value ?: emptyList()
                 if (buttonInt !in currentCats){
                     button.setBackgroundColor(Color.parseColor("#29c40e"))
                     val updatedCats = currentCats + buttonInt
-                    catsLiveData.value = updatedCats
+                    viewModel.updateCatsList(updatedCats)
                 }
                 else{
                     button.setBackgroundColor(defaultBackgroundResource)
                     val updatedCats = currentCats - buttonInt
-                    catsLiveData.value = updatedCats
+                    viewModel.updateCatsList(updatedCats)
                 }
+                //viewModel.updateCatsList(updatedCats) do this here, outside of both if/else
             }
         }
     }
 
-    fun createObserver(){
-        catsLiveData.observe(this) { catsList ->
-            var sButton = findViewById<Button>(R.id.startButt)
+    private fun createObserver(){
+        viewModel.getCatsLiveData().observe(this) { catsList ->
+            var sButton = binding.startButt
             if (catsList.isEmpty()) {
                 //grey out
                 sButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
             } else {
                 //make normal color
                 sButton.setBackgroundColor(Color.parseColor("#d67f40"))
-
             }
         }
     }
-
 }
