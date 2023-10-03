@@ -46,8 +46,9 @@
         Added logic for removing word from list after seen
     
     NEXT TIME:
-    Clear categories and right/wrong values after in-game done
+    Clear categories and right/wrong values after in-game done -- DONE
     Change LiveData list from Ints to Strings
     Add ending screen with scores
     Add & implement word dictionaries for categories
+### Week4
     
