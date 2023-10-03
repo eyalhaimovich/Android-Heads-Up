@@ -10,7 +10,8 @@ class viewModel(private val savedStateHandle: SavedStateHandle): ViewModel() {
     private var right: Int = 0
     private var wrong: Int = 0
     private var catsLiveData = MutableLiveData<List<Int>>()
-
+    //vars
+    //TODO make dictionary key:value cat1:listof(words)
     fun setInput(points: Int, right: Int, wrong: Int) {
         this.points = points
         this.right = right

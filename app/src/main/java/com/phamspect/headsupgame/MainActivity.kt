@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import com.phamspect.headsupgame.databinding.ActivityMain2Binding
 import com.phamspect.headsupgame.databinding.ActivityMainBinding
 import com.phamspect.headsupgame.databinding.LoadingBinding
@@ -23,13 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mainActivity2Binding: ActivityMain2Binding
     private lateinit var loadingBinding: LoadingBinding
     private val viewModel: viewModel by viewModels()
-    //vars
-    private var category: String = ""
-    private var points: Int = 0
-    private var right :Int = 0
-    private var wrong :Int = 0
-    //private val catsLiveData = MutableLiveData<List<Int>>()
-    //TODO make dictionary key:value cat1:listof(words)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //Use binding for layout/xml data link instead of manual
@@ -87,7 +80,6 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onFinish() {
                 makeMainGame()
-                category = ""
             }
         }.start()
     }
@@ -113,7 +105,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                viewModel.setInput(points, right, wrong)
                 makeMainMenu()
             }
 
@@ -130,12 +121,7 @@ class MainActivity : AppCompatActivity() {
         rightWrong(words, word, hit, timer)
     }
 
-    private fun rightWrong(
-        words: List<String>,
-        word: TextView,
-        hit: HashSet<Int>,
-        timer: CountDownTimer
-    ) {
+    private fun rightWrong(words: List<String>, word: TextView, hit: HashSet<Int>, timer: CountDownTimer) {
         var right = mainActivity2Binding.rButton
         var wrong = mainActivity2Binding.wButton
 
@@ -148,7 +134,6 @@ class MainActivity : AppCompatActivity() {
             }
             else {
                 viewModel.right()
-                println(viewModel.getPoints())
                 nextWord(words, word, hit)
             }
 
@@ -222,5 +207,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
