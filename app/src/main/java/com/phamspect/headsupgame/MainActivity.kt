@@ -16,7 +16,7 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
-    private val catsLiveData = MutableLiveData<List<Int>>()
+
 
     //use binding for xml/viewModel vars
     private lateinit var binding: ActivityMainBinding
@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private var points: Int = 0
     private var right :Int = 0
     private var wrong :Int = 0
+    //private val catsLiveData = MutableLiveData<List<Int>>()
     //TODO make dictionary key:value cat1:listof(words)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,12 +62,9 @@ class MainActivity : AppCompatActivity() {
         startButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
         startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
-            if(catsLiveData.value?.isNotEmpty() == true){
+            if(viewModel.getCatsLiveData().value?.isNotEmpty() == true){
                 loadingScreen()
-                viewModel.reset()
-            }
-            else{
-                //
+                viewModel.updateCatsList(emptyList())
             }
         }
     }
@@ -101,6 +99,8 @@ class MainActivity : AppCompatActivity() {
         var currentTime = mainActivity2Binding.timer
         var word = mainActivity2Binding.randomWord
         var hit = hashSetOf<Int>()
+        //reset viewmodel's points
+        viewModel.reset()
 
         //using var to remove words from list when used in session
         var words = listOf("Apple", "Banana", "Cherry", "Date")
@@ -114,7 +114,6 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 viewModel.setInput(points, right, wrong)
-                points = 0
                 makeMainMenu()
             }
 
@@ -195,23 +194,24 @@ class MainActivity : AppCompatActivity() {
             val buttonInt = button.text.toString().toInt()
             button.setOnClickListener {
                 //change color of button and add/remove btn's int to category list
-                val currentCats = catsLiveData.value ?: emptyList()
+                val currentCats = viewModel.getCatsLiveData().value ?: emptyList()
                 if (buttonInt !in currentCats){
                     button.setBackgroundColor(Color.parseColor("#29c40e"))
                     val updatedCats = currentCats + buttonInt
-                    catsLiveData.value = updatedCats
+                    viewModel.updateCatsList(updatedCats)
                 }
                 else{
                     button.setBackgroundColor(defaultBackgroundResource)
                     val updatedCats = currentCats - buttonInt
-                    catsLiveData.value = updatedCats
+                    viewModel.updateCatsList(updatedCats)
                 }
+                //viewModel.updateCatsList(updatedCats) do this here, outside of both if/else
             }
         }
     }
 
     private fun createObserver(){
-        catsLiveData.observe(this) { catsList ->
+        viewModel.getCatsLiveData().observe(this) { catsList ->
             var sButton = binding.startButt
             if (catsList.isEmpty()) {
                 //grey out
