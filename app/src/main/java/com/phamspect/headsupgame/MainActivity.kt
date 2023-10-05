@@ -12,12 +12,12 @@ import com.phamspect.headsupgame.databinding.ActivityMain2Binding
 import com.phamspect.headsupgame.databinding.ActivityMainBinding
 import com.phamspect.headsupgame.databinding.LoadingBinding
 import kotlin.random.Random
+import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
-
-
-    //use binding for xml/viewModel vars
+    private val TAG = "mainActivity"
+    //use binding for xml/viewModel varsa
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainActivity2Binding: ActivityMain2Binding
     private lateinit var loadingBinding: LoadingBinding
@@ -173,24 +173,29 @@ class MainActivity : AppCompatActivity() {
             binding.cat4, binding.cat5, binding.cat6,
             binding.cat7, binding.cat8, binding.cat9
         )
-        val defaultBackgroundResource = Color.parseColor("#d67f40")
+        val defaultCatButtonColor = Color.parseColor("#d67f40")
         for (button in categoryButtons) {
-            button.setBackgroundColor(defaultBackgroundResource)
-            val buttonInt = button.text.toString().toInt()
+            button.setBackgroundColor(defaultCatButtonColor)
+            val buttonText = button.text.toString()
+            viewModel.addKeystoMap(buttonText)
             button.setOnClickListener {
                 //change color of button and add/remove btn's int to category list
                 val currentCats = viewModel.getCatsLiveData().value ?: emptyList()
+                // Only allow 1 category to be selected
+                if (currentCats.isEmpty()) {
+                    button.setBackgroundColor(Color.parseColor("#29c40e"))
+                    viewModel.updateCatsList(currentCats + buttonText)
+                }
+                // USE THIS IF FOR SELECTING MULTIPLE CATEGORIES
+                /*
                 if (buttonInt !in currentCats){
                     button.setBackgroundColor(Color.parseColor("#29c40e"))
-                    val updatedCats = currentCats + buttonInt
-                    viewModel.updateCatsList(updatedCats)
-                }
+                    viewModel.updateCatsList(currentCats + buttonText)
+                }*/
                 else{
-                    button.setBackgroundColor(defaultBackgroundResource)
-                    val updatedCats = currentCats - buttonInt
-                    viewModel.updateCatsList(updatedCats)
+                    button.setBackgroundColor(defaultCatButtonColor)
+                    viewModel.updateCatsList(currentCats - buttonText)
                 }
-                //viewModel.updateCatsList(updatedCats) do this here, outside of both if/else
             }
         }
     }
