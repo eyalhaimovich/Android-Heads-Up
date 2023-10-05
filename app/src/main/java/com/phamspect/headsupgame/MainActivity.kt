@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun makeTitleScreen() {
         setContentView(binding.root)
         visibility(View.INVISIBLE)
+        binding.appName.textSize = 80f
         binding.scoreTitle.visibility = View.VISIBLE
         binding.root.setOnClickListener{
             makeMainMenu()
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         visibility(View.VISIBLE)
         binding.scoreTitle.visibility = View.INVISIBLE
+        binding.appName.textSize = 63f
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         binding.score.text = viewModel.getPoints().toString()
@@ -78,6 +80,8 @@ class MainActivity : AppCompatActivity() {
         //start button listener
         var startButton :Button = binding.startButt
         startButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
+        startButton.isActivated = false
+        startButton.isEnabled = false
         startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
             if(viewModel.getCatsLiveData().value?.isNotEmpty() == true){
@@ -231,9 +235,14 @@ class MainActivity : AppCompatActivity() {
             if (catsList.isEmpty()) {
                 //grey out
                 sButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
+                sButton.isActivated = false
+                sButton.isEnabled = false
             } else {
                 //make normal color
                 sButton.setBackgroundColor(Color.parseColor("#d67f40"))
+                sButton.isActivated = true
+                sButton.isEnabled = true
+
             }
         }
     }
