@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -12,7 +13,6 @@ import com.phamspect.headsupgame.databinding.ActivityMain2Binding
 import com.phamspect.headsupgame.databinding.ActivityMainBinding
 import com.phamspect.headsupgame.databinding.LoadingBinding
 import kotlin.random.Random
-import android.util.Log
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,12 +31,37 @@ class MainActivity : AppCompatActivity() {
         loadingBinding = LoadingBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
 
-        makeMainMenu()
+        makeTitleScreen()
+    }
+
+    private fun makeTitleScreen() {
+        setContentView(binding.root)
+        visibility(View.INVISIBLE)
+        binding.scoreTitle.visibility = View.VISIBLE
+        binding.root.setOnClickListener{
+            makeMainMenu()
+        }
+    }
+
+    private fun visibility(visibility : Int){
+        binding.catTxt.visibility = visibility
+        binding.startButt.visibility = visibility
+        val categoryButtons = listOf(
+            binding.cat1, binding.cat2, binding.cat3,
+            binding.cat4, binding.cat5, binding.cat6,
+            binding.cat7, binding.cat8, binding.cat9
+        )
+
+        for(butt in categoryButtons){
+            butt.visibility = visibility
+        }
     }
 
     // make main menu setup
     private fun makeMainMenu() {
         setContentView(binding.root)
+        visibility(View.VISIBLE)
+        binding.scoreTitle.visibility = View.INVISIBLE
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         binding.score.text = viewModel.getPoints().toString()

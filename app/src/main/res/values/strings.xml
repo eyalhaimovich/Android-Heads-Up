@@ -10,6 +10,6 @@
     <string name="cat8">Places</string>
     <string name="cat9">Jokes</string>
     <string name="startButton">start</string>
-    <string name="score">Score:</string>
+    <string name="score">Tap to start</string>
     <string name="categoriesTitle">Categories</string>
 </resources>
