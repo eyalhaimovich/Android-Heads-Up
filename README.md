@@ -50,5 +50,6 @@
     Change LiveData list from Ints to Strings
     Add ending screen with scores
     Add & implement word dictionaries for categories
+    
 ### Week4
     
