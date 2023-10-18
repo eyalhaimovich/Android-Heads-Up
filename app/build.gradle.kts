@@ -74,6 +74,9 @@ dependencies {
     //implementation ("com.aallam.openai:openai-client:3.4.1")
     //implementation("io.ktor:ktor-client-android:2.3.4")
 
+    // Tesseract OCR dependencies
+    implementation("com.rmtheis:tess-two:9.1.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
