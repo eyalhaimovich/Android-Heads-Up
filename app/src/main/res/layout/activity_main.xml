@@ -8,6 +8,7 @@
     android:backgroundTint="#885B8F"
     android:backgroundTintMode="add"
     android:visibility="visible"
+    android:id="@+id/layout"
     tools:context=".MainActivity">
 
     <TextView
@@ -20,7 +21,7 @@
         android:fontFamily="sans-serif-black"
         android:freezesText="false"
         android:includeFontPadding="false"
-        android:text="Heads UP"
+        android:text="@string/app_name"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textIsSelectable="false"
@@ -39,7 +40,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Categories"
+        android:text="@string/categoriesTitle"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="44sp"
@@ -52,14 +53,15 @@
 
     <TextView
         android:id="@+id/scoreTitle"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="232dp"
-        android:text="Score:"
+        android:layout_width="429dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="656dp"
+        android:text="@string/score"
         android:textAlignment="center"
         android:textSize="42sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,6 +72,7 @@
         android:layout_marginTop="300dp"
         android:textAlignment="center"
         android:textSize="42sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +84,7 @@
         android:layout_width="313dp"
         android:layout_height="66dp"
         android:layout_marginTop="240dp"
-        android:text="start"
+        android:text="@string/startButton"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textIsSelectable="false"
@@ -100,7 +103,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="368dp"
         android:clickable="false"
-        android:text="1"
+        android:text="@string/cat1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,7 +113,7 @@
         android:layout_height="68dp"
         android:layout_marginTop="368dp"
         android:clickable="false"
-        android:text="2"
+        android:text="@string/cat2"
         app:layout_constraintEnd_toStartOf="@id/cat3"
         app:layout_constraintStart_toEndOf="@+id/cat1"
         app:layout_constraintTop_toTopOf="parent" />
@@ -122,7 +125,7 @@
         android:layout_marginTop="368dp"
         android:layout_marginEnd="4dp"
         android:clickable="false"
-        android:text="3"
+        android:text="@string/cat3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cat2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -134,7 +137,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:clickable="false"
-        android:text="4"
+        android:text="@string/cat4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cat1" />
 
@@ -144,7 +147,7 @@
         android:layout_height="68dp"
         android:layout_marginTop="5dp"
         android:clickable="false"
-        android:text="5"
+        android:text="@string/cat5"
         app:layout_constraintStart_toEndOf="@+id/cat4"
         app:layout_constraintTop_toBottomOf="@+id/cat2"
         app:layout_constraintEnd_toStartOf="@id/cat6"/>
@@ -156,7 +159,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginTop="5dp"
         android:clickable="false"
-        android:text="6"
+        android:text="@string/cat6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cat5"
         app:layout_constraintTop_toBottomOf="@+id/cat3" />
@@ -167,7 +170,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:clickable="false"
-        android:text="7"
+        android:text="@string/cat7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cat4" />
     <Button
@@ -176,7 +179,7 @@
         android:layout_height="68dp"
         android:layout_marginTop="5dp"
         android:clickable="false"
-        android:text="8"
+        android:text="@string/cat8"
         app:layout_constraintStart_toEndOf="@+id/cat7"
         app:layout_constraintTop_toBottomOf="@+id/cat5"
         app:layout_constraintEnd_toStartOf="@id/cat9"/>
@@ -187,7 +190,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginTop="5dp"
         android:clickable="false"
-        android:text="9"
+        android:text="@string/cat9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cat8"
         app:layout_constraintTop_toBottomOf="@+id/cat6" />

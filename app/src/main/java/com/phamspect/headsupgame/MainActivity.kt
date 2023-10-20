@@ -4,10 +4,13 @@ import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import com.phamspect.headsupgame.databinding.ActivityMain2Binding
 import com.phamspect.headsupgame.databinding.ActivityMainBinding
 import com.phamspect.headsupgame.databinding.LoadingBinding
@@ -15,9 +18,8 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
-
-
-    //use binding for xml/viewModel vars
+    private val TAG = "mainActivity"
+    //use binding for xml/viewModel varsa
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainActivity2Binding: ActivityMain2Binding
     private lateinit var loadingBinding: LoadingBinding
@@ -31,12 +33,56 @@ class MainActivity : AppCompatActivity() {
         loadingBinding = LoadingBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
 
-        makeMainMenu()
+        makeTitleScreen()
+    }
+
+    private fun makeTitleScreen() {
+        setContentView(binding.root)
+        visibility(View.INVISIBLE)
+        binding.scoreTitle.setTextColor(Color.WHITE)
+        binding.appName.textSize = 83f
+        binding.scoreTitle.visibility = View.VISIBLE
+
+        setVerticalBias(.40f, R.id.layout, R.id.appName)
+
+
+        binding.root.setOnClickListener{
+            makeMainMenu()
+
+        }
+    }
+    // function use to change vertical position of element
+    private fun setVerticalBias(float: Float, constraintLayout: Int, view : Int){
+        val constraint : ConstraintLayout = findViewById(constraintLayout)
+        val set = ConstraintSet()
+        set.clone(constraint)
+        set.setVerticalBias(view, float)
+        set.applyTo(constraint)
+    }
+
+    private fun visibility(visibility : Int){
+        binding.catTxt.visibility = visibility
+        binding.startButt.visibility = visibility
+        val categoryButtons = listOf(
+            binding.cat1, binding.cat2, binding.cat3,
+            binding.cat4, binding.cat5, binding.cat6,
+            binding.cat7, binding.cat8, binding.cat9
+        )
+
+        for(butt in categoryButtons){
+            butt.visibility = visibility
+        }
     }
 
     // make main menu setup
     private fun makeMainMenu() {
         setContentView(binding.root)
+        visibility(View.VISIBLE)
+        binding.scoreTitle.visibility = View.INVISIBLE
+        binding.appName.textSize = 63f
+
+        setVerticalBias(0f, R.id.layout, R.id.appName)
+
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         binding.score.text = viewModel.getPoints().toString()
@@ -53,6 +99,8 @@ class MainActivity : AppCompatActivity() {
         //start button listener
         var startButton :Button = binding.startButt
         startButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
+        startButton.isActivated = false
+        startButton.isEnabled = false
         startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
             if(viewModel.getCatsLiveData().value?.isNotEmpty() == true){
@@ -173,24 +221,29 @@ class MainActivity : AppCompatActivity() {
             binding.cat4, binding.cat5, binding.cat6,
             binding.cat7, binding.cat8, binding.cat9
         )
-        val defaultBackgroundResource = Color.parseColor("#d67f40")
+        val defaultCatButtonColor = Color.parseColor("#d67f40")
         for (button in categoryButtons) {
-            button.setBackgroundColor(defaultBackgroundResource)
-            val buttonInt = button.text.toString().toInt()
+            button.setBackgroundColor(defaultCatButtonColor)
+            val buttonText = button.text.toString()
+            viewModel.addKeystoMap(buttonText)
             button.setOnClickListener {
                 //change color of button and add/remove btn's int to category list
                 val currentCats = viewModel.getCatsLiveData().value ?: emptyList()
+                // Only allow 1 category to be selected
+                if (currentCats.isEmpty()) {
+                    button.setBackgroundColor(Color.parseColor("#29c40e"))
+                    viewModel.updateCatsList(currentCats + buttonText)
+                }
+                // USE THIS IF FOR SELECTING MULTIPLE CATEGORIES
+                /*
                 if (buttonInt !in currentCats){
                     button.setBackgroundColor(Color.parseColor("#29c40e"))
-                    val updatedCats = currentCats + buttonInt
-                    viewModel.updateCatsList(updatedCats)
-                }
+                    viewModel.updateCatsList(currentCats + buttonText)
+                }*/
                 else{
-                    button.setBackgroundColor(defaultBackgroundResource)
-                    val updatedCats = currentCats - buttonInt
-                    viewModel.updateCatsList(updatedCats)
+                    button.setBackgroundColor(defaultCatButtonColor)
+                    viewModel.updateCatsList(currentCats - buttonText)
                 }
-                //viewModel.updateCatsList(updatedCats) do this here, outside of both if/else
             }
         }
     }
@@ -201,9 +254,14 @@ class MainActivity : AppCompatActivity() {
             if (catsList.isEmpty()) {
                 //grey out
                 sButton.setBackgroundColor(Color.parseColor("#bdb1a8"))
+                sButton.isActivated = false
+                sButton.isEnabled = false
             } else {
                 //make normal color
                 sButton.setBackgroundColor(Color.parseColor("#d67f40"))
+                sButton.isActivated = true
+                sButton.isEnabled = true
+
             }
         }
     }

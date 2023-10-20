@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">HeadsUpGame</string>
+    <string name="app_name">Heads Up</string>
+    <string name="cat1">Medicine</string>
+    <string name="cat2">Math</string>
+    <string name="cat3">Science</string>
+    <string name="cat4">Computers</string>
+    <string name="cat5">Accents</string>
+    <string name="cat6">Movies</string>
+    <string name="cat7">Animals</string>
+    <string name="cat8">Places</string>
+    <string name="cat9">Jokes</string>
+    <string name="startButton">start</string>
+    <string name="score">Tap to start</string>
+    <string name="categoriesTitle">Categories</string>
 </resources>

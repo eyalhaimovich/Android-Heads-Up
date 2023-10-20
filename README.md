@@ -47,8 +47,17 @@
     
     NEXT TIME:
     Clear categories and right/wrong values after in-game done -- DONE
-    Change LiveData list from Ints to Strings
+    Change LiveData list from Ints to Strings --DONE
     Add ending screen with scores
     Add & implement word dictionaries for categories
+    
 ### Week4
+    added dictionary to view model with empty list of string
+    added title screen and transition changes
+    limit the number of selected category to 1
+
+    NEXT TIME:
+    add words to empty list
+    Add ending screen with score and a return to main menu
+    improve title to main menu transition (Adding Animation)
     
