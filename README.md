@@ -12,6 +12,8 @@
    ### Languages
      * Android Studio for Code + Emulator
      * SQL for database
+   ### TODO
+     * tilt control
 
 ### Week 1
     Finished main menu UI
@@ -59,5 +61,13 @@
     NEXT TIME:
     add words to empty list
     Add ending screen with score and a return to main menu
-    improve title to main menu transition (Adding Animation)
-    
+    improve title to main menu transition
+
+### Week5
+    made ending screen with scroe tracker
+    redesigned category map to static map
+    changed live data from list to string
+
+    NEXT TIME:
+    reorganizing code and layout
+    separating function into intention
