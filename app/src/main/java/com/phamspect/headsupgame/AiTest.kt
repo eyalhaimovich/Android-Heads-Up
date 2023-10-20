@@ -16,7 +16,7 @@ class AiTest {
     private var client = OkHttpClient()
 
     fun getResponse() {
-        val key = "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"
+        val key = "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"
         val url = "https://api.openai.com/v1/chat/completions"
 
         val reBody = """
