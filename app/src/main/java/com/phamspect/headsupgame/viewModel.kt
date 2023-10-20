@@ -47,4 +47,11 @@ class viewModel(
         wrong = 0
         points = 0
     }
+
+    fun getRight() : Int{
+        return right
+    }
+    fun getWrong(): Int{
+        return wrong
+    }
 }
