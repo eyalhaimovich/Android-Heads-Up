@@ -143,7 +143,6 @@ class MainActivity : AppCompatActivity() {
         //get category of words
         val category = viewModel.getCategoryLiveData().value.toString()
         val words = viewModel.getCategoryWords(category)
-        val z = ""
         //timer
         var timer:CountDownTimer = object : CountDownTimer(30000, 1000) {
 
@@ -236,9 +235,7 @@ class MainActivity : AppCompatActivity() {
                     // Select the new category button
                     button.setBackgroundColor(selectedCatButtonColor)
                     selectedCategoryButton = button
-                    val x = button.text.toString()
                     viewModel.setCategoryLiveData(button.text.toString())
-                    val y = viewModel.getCategoryLiveData().value.toString()
                 } else {
                     // Deselect the currently selected button
                     selectedCategoryButton = null
