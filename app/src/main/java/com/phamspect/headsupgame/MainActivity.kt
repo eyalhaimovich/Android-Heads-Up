@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.phamspect.headsupgame.databinding.ActivityMain2Binding
 import com.phamspect.headsupgame.databinding.ActivityMainBinding
+import com.phamspect.headsupgame.databinding.EndingBinding
 import com.phamspect.headsupgame.databinding.LoadingBinding
 import kotlin.random.Random
 
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainActivity2Binding: ActivityMain2Binding
     private lateinit var loadingBinding: LoadingBinding
+    private lateinit var endingBinding: EndingBinding
     private val viewModel: viewModel by viewModels()
 
 
@@ -31,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         mainActivity2Binding = ActivityMain2Binding.inflate(layoutInflater)
         loadingBinding = LoadingBinding.inflate(layoutInflater)
+        endingBinding = EndingBinding.inflate(layoutInflater)
+
         super.onCreate(savedInstanceState)
 
         makeTitleScreen()
@@ -90,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         makeCategoryButton()
         //start button listener
         makeStartButton()
-
+        //start observer for category selection
         createObserver()
     }
 
@@ -151,7 +155,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                makeMainMenu()
+                makeEnding()
             }
 
         }.start()
@@ -176,7 +180,7 @@ class MainActivity : AppCompatActivity() {
             if(hit.size == words.size){
                 viewModel.right()
                 timer.cancel()
-                makeMainMenu()
+                makeEnding()
             }
             else {
                 viewModel.right()
@@ -190,7 +194,7 @@ class MainActivity : AppCompatActivity() {
             if(hit.size == words.size){
                 viewModel.wrong()
                 timer.cancel()
-                makeMainMenu()
+                makeEnding()
             }
             else {
                 viewModel.wrong()
@@ -243,6 +247,19 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    //make the ending screen show right and Wrong with total
+    private fun makeEnding(){
+        setContentView(endingBinding.root)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        endingBinding.rightPts.text = viewModel.getRight().toString()
+        endingBinding.wrongPts.text = viewModel.getWrong().toString()
+        endingBinding.totalPts.text = viewModel.getPoints().toString()
+
+        endingBinding.retrun.setBackgroundColor(Color.YELLOW)
+        endingBinding.retrun.setOnClickListener { makeMainMenu() }
+
     }
 
     private fun createObserver(){

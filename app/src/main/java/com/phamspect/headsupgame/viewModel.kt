@@ -80,8 +80,15 @@ class viewModel(private val savedStateHandle: SavedStateHandle): ViewModel() {
         points = 0
     }
 
-
+    fun getRight() : Int{
+        return right
+    }
+    fun getWrong(): Int{
+        return wrong
+    }
 }
+
+
 /*
 fun addKeystoMap(key: String){
     categoryMap[key] = emptyList<String>()
