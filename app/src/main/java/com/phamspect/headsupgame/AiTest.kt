@@ -12,14 +12,14 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
+class AiTest {
+    private var client = OkHttpClient()
 
-private var client = OkHttpClient()
+    fun getResponse() {
+        val key = "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"
+        val url = "https://api.openai.com/v1/chat/completions"
 
-fun getResponse(){
-    val key = "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"
-    val url = "https://api.openai.com/v1/chat/completions"
-
-    val reBody = """
+        val reBody = """
         {
         "model": "gpt-3.5-turbo",
         "messages": [
@@ -35,34 +35,32 @@ fun getResponse(){
         }
         """.trimIndent()
 
-    val request = Request.Builder()
-        .url(url)
-        .addHeader("Content-Type", "application/json")
-        .addHeader("Authorization", "Bearer $key")
-        .post(reBody.toRequestBody("application/json".toMediaTypeOrNull()))
-        .build()
+        val request = Request.Builder()
+            .url(url)
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Authorization", "Bearer $key")
+            .post(reBody.toRequestBody("application/json".toMediaTypeOrNull()))
+            .build()
 
-    client.newCall(request).enqueue(object : Callback {
-        override fun onFailure(call: Call, e: IOException) {
-            Log.e("error", "API FAIL",e)
-        }
-
-        override fun onResponse(call: Call, response: Response) {
-            val body: String? = response.body?.string()
-            if (body != null) {
-                Log.v("data",body)
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.e("error", "API FAIL", e)
             }
-            else{
-                Log.v("data", "empty")
-            }
-            val jsonOBJ = JSONObject(body)
-            val jsonarray : JSONArray = jsonOBJ.getJSONArray("choices")
-            val message = jsonarray.getJSONObject(0).getJSONObject("message").getString("content")
-            println(message)
-        }
 
-    })
-}
- fun main(){
-    getResponse()
+            override fun onResponse(call: Call, response: Response) {
+                val body: String? = response.body?.string()
+                if (body != null) {
+                    Log.v("data", body)
+                } else {
+                    Log.v("data", "empty")
+                }
+                val jsonOBJ = JSONObject(body)
+                val jsonarray: JSONArray = jsonOBJ.getJSONArray("choices")
+                val message =
+                    jsonarray.getJSONObject(0).getJSONObject("message").getString("content")
+                println(message)
+            }
+
+        })
+    }
 }

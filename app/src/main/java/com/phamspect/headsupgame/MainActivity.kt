@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import com.phamspect.headsupgame.databinding.ActivityMain2Binding
 import com.phamspect.headsupgame.databinding.ActivityMainBinding
 import com.phamspect.headsupgame.databinding.LoadingBinding
@@ -37,11 +39,25 @@ class MainActivity : AppCompatActivity() {
     private fun makeTitleScreen() {
         setContentView(binding.root)
         visibility(View.INVISIBLE)
-        binding.appName.textSize = 80f
+        binding.scoreTitle.setTextColor(Color.WHITE)
+        binding.appName.textSize = 83f
         binding.scoreTitle.visibility = View.VISIBLE
+
+        setVerticalBias(.40f, R.id.layout, R.id.appName)
+
+
         binding.root.setOnClickListener{
             makeMainMenu()
+
         }
+    }
+    // function use to change vertical position of element
+    private fun setVerticalBias(float: Float, constraintLayout: Int, view : Int){
+        val constraint : ConstraintLayout = findViewById(constraintLayout)
+        val set = ConstraintSet()
+        set.clone(constraint)
+        set.setVerticalBias(view, float)
+        set.applyTo(constraint)
     }
 
     private fun visibility(visibility : Int){
@@ -64,6 +80,9 @@ class MainActivity : AppCompatActivity() {
         visibility(View.VISIBLE)
         binding.scoreTitle.visibility = View.INVISIBLE
         binding.appName.textSize = 63f
+
+        setVerticalBias(0f, R.id.layout, R.id.appName)
+
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         binding.score.text = viewModel.getPoints().toString()
