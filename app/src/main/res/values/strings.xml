@@ -3,13 +3,140 @@
     <string name="cat1">Medicine</string>
     <string name="cat2">Math</string>
     <string name="cat3">Science</string>
-    <string name="cat4">Computers</string>
-    <string name="cat5">Accents</string>
+    <string name="cat4">Technology</string>
+    <string name="cat5">Food</string>
     <string name="cat6">Movies</string>
     <string name="cat7">Animals</string>
     <string name="cat8">Places</string>
-    <string name="cat9">Jokes</string>
+    <string name="cat9">Songs</string>
     <string name="startButton">start</string>
     <string name="score">Tap to start</string>
     <string name="categoriesTitle">Categories</string>
+
+    <!-- Medicine -->
+    <string-array name="Medicine">
+        <item>Insulin</item>
+        <item>Advil</item>
+        <item>Tylenol</item>
+        <item>Aspirin</item>
+        <item>Antibiotic</item>
+        <item>Morphine</item>
+        <item>Xanax</item>
+        <item>Penicillin</item>
+        <item>Ibuprofen</item>
+        <item>Vicodin</item>
+    </string-array>
+
+    <!-- Math -->
+    <string-array name="Math">
+        <item>Calculus</item>
+        <item>Algebra</item>
+        <item>Geometry</item>
+        <item>Trigonometry</item>
+        <item>Statistics</item>
+        <item>Arithmetic</item>
+        <item>Linear Algebra</item>
+        <item>Calculations</item>
+        <item>Equations</item>
+        <item>Probability</item>
+    </string-array>
+
+    <!-- Science -->
+    <string-array name="Science">
+        <item>Chemistry</item>
+        <item>Biology</item>
+        <item>Physics</item>
+        <item>Astronomy</item>
+        <item>Geology</item>
+        <item>Microbiology</item>
+        <item>Botany</item>
+        <item>Zoology</item>
+        <item>Meteorology</item>
+        <item>Genetics</item>
+    </string-array>
+
+    <!-- Technology -->
+    <string-array name="Technology">
+        <item>Computer</item>
+        <item>Internet</item>
+        <item>Smartphone</item>
+        <item>Software</item>
+        <item>Hardware</item>
+        <item>Programming</item>
+        <item>Artificial Intelligence</item>
+        <item>Virtual Reality</item>
+        <item>Blockchain</item>
+        <item>Cybersecurity</item>
+    </string-array>
+
+    <!-- Food -->
+    <string-array name="Food">
+        <item>Pizza</item>
+        <item>Sushi</item>
+        <item>Chocolate</item>
+        <item>Pasta</item>
+        <item>Ice Cream</item>
+        <item>Hamburger</item>
+        <item>Salad</item>
+        <item>Bacon</item>
+        <item>Coffee</item>
+        <item>Tacos</item>
+    </string-array>
+
+    <!-- Movies -->
+    <string-array name="Movies">
+        <item>Titanic</item>
+        <item>Inception</item>
+        <item>Avatar</item>
+        <item>Jurassic Park</item>
+        <item>Star Wars</item>
+        <item>The Matrix</item>
+        <item>Gladiator</item>
+        <item>Lord of the Rings</item>
+        <item>The Shawshank Redemption</item>
+        <item>The Godfather</item>
+    </string-array>
+
+    <!-- Animals -->
+    <string-array name="Animals">
+        <item>Lion</item>
+        <item>Elephant</item>
+        <item>Tiger</item>
+        <item>Giraffe</item>
+        <item>Penguin</item>
+        <item>Dolphin</item>
+        <item>Kangaroo</item>
+        <item>Koala</item>
+        <item>Polar Bear</item>
+        <item>Gorilla</item>
+    </string-array>
+
+    <!-- Places -->
+    <string-array name="Places">
+        <item>Paris</item>
+        <item>New York</item>
+        <item>London</item>
+        <item>Tokyo</item>
+        <item>Rome</item>
+        <item>Sydney</item>
+        <item>Barcelona</item>
+        <item>Dubai</item>
+        <item>Rio de Janeiro</item>
+        <item>Venice</item>
+    </string-array>
+
+    <!-- Songs -->
+    <string-array name="Songs">
+        <item>I Gotta Feeling</item>
+        <item>Uptown Funk</item>
+        <item>Thriller</item>
+        <item>Bohemian Rhapsody</item>
+        <item>Imagine</item>
+        <item>Billie Jean</item>
+        <item>Hotel California</item>
+        <item>Rolling in the Deep</item>
+        <item>Like a Rolling Stone</item>
+        <item>Hey Jude</item>
+    </string-array>
+
 </resources>

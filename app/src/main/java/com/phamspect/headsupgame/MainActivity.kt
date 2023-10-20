@@ -42,15 +42,15 @@ class MainActivity : AppCompatActivity() {
         binding.scoreTitle.setTextColor(Color.WHITE)
         binding.appName.textSize = 83f
         binding.scoreTitle.visibility = View.VISIBLE
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         setVerticalBias(.40f, R.id.layout, R.id.appName)
 
-
         binding.root.setOnClickListener{
             makeMainMenu()
-
         }
     }
+
     // function use to change vertical position of element
     private fun setVerticalBias(float: Float, constraintLayout: Int, view : Int){
         val constraint : ConstraintLayout = findViewById(constraintLayout)
@@ -103,10 +103,7 @@ class MainActivity : AppCompatActivity() {
         startButton.isEnabled = false
         startButton.setOnClickListener {
             // change view to activity_main2 (main Game)
-            if(viewModel.getCatsLiveData().value?.isNotEmpty() == true){
-                loadingScreen()
-                viewModel.updateCatsList(emptyList())
-            }
+            loadingScreen()
         }
     }
 
@@ -128,6 +125,7 @@ class MainActivity : AppCompatActivity() {
             }
             override fun onFinish() {
                 makeMainGame()
+                viewModel.setCategoryLiveData("")
             }
         }.start()
     }
@@ -142,9 +140,10 @@ class MainActivity : AppCompatActivity() {
         //reset viewmodel's points
         viewModel.reset()
 
-        //using var to remove words from list when used in session
-        var words = listOf("Apple", "Banana", "Cherry", "Date")
-
+        //get category of words
+        val category = viewModel.getCategoryLiveData().value.toString()
+        val words = viewModel.getCategoryWords(category)
+        val z = ""
         //timer
         var timer:CountDownTimer = object : CountDownTimer(30000, 1000) {
 
@@ -222,34 +221,35 @@ class MainActivity : AppCompatActivity() {
             binding.cat7, binding.cat8, binding.cat9
         )
         val defaultCatButtonColor = Color.parseColor("#d67f40")
+        val selectedCatButtonColor = Color.parseColor("#29c40e")
+        var selectedCategoryButton: Button? = null
+
         for (button in categoryButtons) {
             button.setBackgroundColor(defaultCatButtonColor)
-            val buttonText = button.text.toString()
-            viewModel.addKeystoMap(buttonText)
+            //viewModel.addKeystoMap(buttonText)
             button.setOnClickListener {
-                //change color of button and add/remove btn's int to category list
-                val currentCats = viewModel.getCatsLiveData().value ?: emptyList()
-                // Only allow 1 category to be selected
-                if (currentCats.isEmpty()) {
-                    button.setBackgroundColor(Color.parseColor("#29c40e"))
-                    viewModel.updateCatsList(currentCats + buttonText)
+                if (selectedCategoryButton != null) {
+                    // Deselect the previously selected button
+                    selectedCategoryButton?.setBackgroundColor(defaultCatButtonColor)
                 }
-                // USE THIS IF FOR SELECTING MULTIPLE CATEGORIES
-                /*
-                if (buttonInt !in currentCats){
-                    button.setBackgroundColor(Color.parseColor("#29c40e"))
-                    viewModel.updateCatsList(currentCats + buttonText)
-                }*/
-                else{
-                    button.setBackgroundColor(defaultCatButtonColor)
-                    viewModel.updateCatsList(currentCats - buttonText)
+                if (button != selectedCategoryButton) {
+                    // Select the new category button
+                    button.setBackgroundColor(selectedCatButtonColor)
+                    selectedCategoryButton = button
+                    val x = button.text.toString()
+                    viewModel.setCategoryLiveData(button.text.toString())
+                    val y = viewModel.getCategoryLiveData().value.toString()
+                } else {
+                    // Deselect the currently selected button
+                    selectedCategoryButton = null
+                    viewModel.setCategoryLiveData("")
                 }
             }
         }
     }
 
     private fun createObserver(){
-        viewModel.getCatsLiveData().observe(this) { catsList ->
+        viewModel.getCategoryLiveData().observe(this) { catsList ->
             var sButton = binding.startButt
             if (catsList.isEmpty()) {
                 //grey out
