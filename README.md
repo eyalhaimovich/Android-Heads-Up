@@ -71,3 +71,18 @@
     NEXT TIME:
     reorganizing code and layout
     separating function into intention
+
+### Week6
+    Separated into multiple activity using intent
+    tranfer data across differnt view model of each actitity using put Extra and get extra
+
+--------------------------------------FINSHED BASESD GAME-----------------------------------------------------
+     Next Time:
+     determin what to do with hard coded list of words 
+     Start database 
+     make file to store list of Words and categories for the based game 
+     increase the number of word in each category
+     change category
+     
+    
+    
