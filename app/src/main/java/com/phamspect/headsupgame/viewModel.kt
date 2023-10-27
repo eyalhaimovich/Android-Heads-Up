@@ -6,9 +6,8 @@ import androidx.lifecycle.ViewModel
 
 class viewModel(private val savedStateHandle: SavedStateHandle): ViewModel() {
     //vars
-    private var points: Int = 0
-    private var right: Int = 0
-    private var wrong: Int = 0
+    // [total, right, wrong]
+    private var points = intArrayOf(0,0,0)
     private var categoryLiveData = MutableLiveData<String>()
     private var categoryMap = mapOf(
         "Medicine" to listOf(
@@ -49,7 +48,15 @@ class viewModel(private val savedStateHandle: SavedStateHandle): ViewModel() {
         ))
 
     fun getPoints(): Int{
+        return points[0]
+    }
+
+    fun getPointsData(): IntArray{
         return points
+    }
+
+    fun setPointsData( data:IntArray){
+        points = data
     }
 
     fun getCategoryLiveData(): MutableLiveData<String>{
@@ -65,26 +72,24 @@ class viewModel(private val savedStateHandle: SavedStateHandle): ViewModel() {
     }
 
     fun right(){
-        right++
-        points++
+        points[1]++
+        points[0]++
     }
 
     fun wrong(){
-        wrong++
-        points--
+        points[2]++
+        points[0]--
     }
 
     fun reset(){
-        right = 0
-        wrong = 0
-        points = 0
+        points = intArrayOf(0,0,0)
     }
 
     fun getRight() : Int{
-        return right
+        return points[1]
     }
     fun getWrong(): Int{
-        return wrong
+        return points[2]
     }
 }
 

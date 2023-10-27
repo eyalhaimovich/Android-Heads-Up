@@ -15,7 +15,10 @@
         android:theme="@style/Theme.HeadsUpGame"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity2"
+            android:name=".InGameAct"
+            android:exported="false" />
+        <activity
+            android:name=".EndingAct"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
