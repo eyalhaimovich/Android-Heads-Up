@@ -1,4 +1,4 @@
-# Phamspect Projects
+# Android Heads Up
  
 ## Heads Up Game for Android: 
      * Plain text on blank background heads up game
